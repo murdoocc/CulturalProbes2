@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -40,18 +41,29 @@ public class New_Document extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    String nota[][] = new String[1][2];
-                    MyOpenHelper MOP = new MyOpenHelper(v.getContext());
-                    nota[0][0]=etTitulo.getText().toString();
-                    nota[0][1]=etNota.getText().toString();
+                    /*Este if sirve para validar que no existan campos vacios
+                    if (etNota.getText().toString().equals("") || etTitulo.getText().toString().equals("")) {
+                        Toast.makeText(v.getContext(), "No dejes campos vacios", Toast.LENGTH_LONG).show();
+                    }else{*/
+                        //Se crea una variable que pueda almacenar el titulo y el contenido
+                        String nota[][] = new String[1][2];
+                        //Se instancia la clase de sqlite para usar sus metodos
+                        MyOpenHelper MOP = new MyOpenHelper(v.getContext());
+                        //Obtenemos los valores que digita el cliente
+                        nota[0][0] = etTitulo.getText().toString();
+                        nota[0][1] = etNota.getText().toString();
 
+                        //Mandamos los valores recabados al metodo de la clase de la base de datos
+                        MOP.noteRegister(nota);
 
-                    MOP.noteRegister(nota);
+                        etNota.setText("");
+                        etTitulo.setText("");
+                        nota[0][0] = "";
+                        nota[0][1] = "";
 
-                    etNota.setText("");
-                    etTitulo.setText("");
-                    nota[0][0]="";
-                    nota[0][1]="";
+                        Intent intent = new Intent(New_Document.this, Documentos.class);
+                        startActivity(intent);
+                    //}
                 }
                 catch (Exception e)
                 {

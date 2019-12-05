@@ -48,7 +48,9 @@ public class Videos extends AppCompatActivity {
         btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //necesitas una version mayor a Lollipop
                 if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1) {// Marshmallow+
+                    //debes tener permisos para la camara
                     if (ContextCompat.checkSelfPermission(Videos.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
                         // Should we show an explanation?
                         if (ActivityCompat.shouldShowRequestPermissionRationale(Videos.this, Manifest.permission.CAMERA)) {

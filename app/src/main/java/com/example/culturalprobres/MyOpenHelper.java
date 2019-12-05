@@ -14,6 +14,10 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     //Necesita la versión en la que vamos a trabajar y si alguna vez se cambia, el cambio se hace con el metodo
     //onUpgrade
     //El contexto donde nos encontramos y valor que puede se asignado como nulo, no afecta
+    /* contexto: Contexto usado para abrir o crear la base de datos.
+        nombre: Nombre de la base de datos que se creará. En nuestro caso “puntuaciones”.
+        version: Número de versión de la base de datos empezando desde 1. En el caso de que la base de datos actual tenga
+        una versión más antigua se llamará a onUpgrade() para que actualice la base de datos.*/
     private static final String DB_NAME = "cultural.db";
     private static final int DB_VERSION = 1;
     public MyOpenHelper(Context context) {
@@ -64,6 +68,15 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         cultural.close();
     }
 
+    /*La clase SQLiteDatabase es la que nos permite manejar todos los datos dentro del dispositivo, con la clase
+    * podemos definir que es lo que vamos a hacer, como por ejemplo cuando usamos getReadableDatabase para obtener
+    * una referencia de la base de datos
+    *
+    * Para Realizar una consulta utilizando el método rawQuery(), con la que obtiene un cursor que utiliza para
+    * leer todas las filas devueltas en la consulta*/
+
+    //El metodo noteRegister recibe un arreglo matricial que guarda los valores de una nota que fue registrada
+    //ese arreglo solo guarda el titulo como primera posicion y como segunda posicion el contenido
     public void noteRegister(String noteData[][]){
         SQLiteDatabase cultural = this.getReadableDatabase();
         ContentValues valores = new ContentValues();
@@ -89,6 +102,17 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             c.moveToNext();
         }
         return notas;
+    }
+
+    public void deleteNoteTrash() {
+        SQLiteDatabase cultural = this.getReadableDatabase();
+        cultural.delete("notas", "titulo=''",null);
+    }
+
+    public void deleteNote(String titulo) {
+        SQLiteDatabase cultural = this.getReadableDatabase();
+        String delete[] = titulo.split(": ");
+        cultural.delete("notas", "titulo="+"'"+ delete[1] +"'",null);
     }
 
 

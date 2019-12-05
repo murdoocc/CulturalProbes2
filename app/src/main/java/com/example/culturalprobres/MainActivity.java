@@ -1,3 +1,4 @@
+//Menú principal
 package com.example.culturalprobres;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //variable de la base de datos
         MyOpenHelper dbHelper = new MyOpenHelper(this);
+        dbHelper.deleteNoteTrash();
         boolean su=dbHelper.sesionState();
         if(su==true){
             Intent inicioDirecto = new Intent(this, Inicio.class);

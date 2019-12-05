@@ -62,52 +62,33 @@ public class Registro extends AppCompatActivity {
                 pass1 = eTContra1.getText().toString();
                 pass2 = eTContra2.getText().toString();
 
-                if(pass1.equals(pass2)){
-                    MyOpenHelper dbHelper = new MyOpenHelper(v.getContext());
-                    String[] userData = new String[6];
-                    userData[0]=eTUsuario.getText().toString();
-                    userData[1]=eTNombre.getText().toString();
-                    userData[2]=eTApellidos.getText().toString();
-                    userData[3]=eTEmail.getText().toString();
-                    userData[4]=pass1;
-                    dbHelper.userRegister(userData);
-                    Toast.makeText(v.getContext(), "Bienvenido "+ userData[0],Toast.LENGTH_LONG).show();
-                    Intent windowInicio = new Intent(v.getContext(),Inicio.class);
-                    startActivity(windowInicio);
-                }else{
-                    eTContra1.setText("");
-                    eTContra2.setText("");
-                    Toast.makeText(v.getContext(),"Las contraseñas no coinciden",Toast.LENGTH_LONG).show();
+                if (eTNombre.getText().toString().equals("") || eTApellidos.getText().toString().equals("") || eTEmail.getText().toString().equals("")
+                || eTUsuario.getText().toString().equals("") || eTContra1.getText().toString().equals("") || eTContra2.getText().toString().equals("")) {
+
+                    Toast.makeText(v.getContext(), "No dejes algun campo vacio", Toast.LENGTH_LONG).show();
+
+                }else if (pass1.equals(pass2)) {
+                        MyOpenHelper dbHelper = new MyOpenHelper(v.getContext());
+                        String[] userData = new String[6];
+                        userData[0] = eTUsuario.getText().toString();
+                        userData[1] = eTNombre.getText().toString();
+                        userData[2] = eTApellidos.getText().toString();
+                        userData[3] = eTEmail.getText().toString();
+                        userData[4] = pass1;
+                        dbHelper.userRegister(userData);
+                        Toast.makeText(v.getContext(), "Bienvenido " + userData[0], Toast.LENGTH_LONG).show();
+                        Intent windowInicio = new Intent(v.getContext(), Inicio.class);
+                        startActivity(windowInicio);
+                    } else {
+                        eTContra1.setText("");
+                        eTContra2.setText("");
+                        Toast.makeText(v.getContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
                 }
+
 
             }
         });
 
-        if(isExternalStorageWritable()){
-            Log.d(TAG, "El almacenamiento externo esta disponible :)");
-        }else{
-            Log.e(TAG, "El almacenamiento externo no esta disponible :(");
-        }
-
-        String nombreDirectorioPublico = "subdirectorio-publico-pictures-CulturalProbes";
-        if(isExternalStorageWritable()){
-                crearDirectorioPublico(nombreDirectorioPublico);
-        }
-
     }
 
-    private boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
-    }
-
-    public File crearDirectorioPublico(String nombreDirectorio) {
-        //Crear directorio público en la carpeta Pictures.
-        File directorio = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), nombreDirectorio);
-        //Muestro un mensaje en el logcat si no se creo la carpeta por algun motivo
-        if (!directorio.mkdirs())
-            Log.e(TAG, "Error: No se creo el directorio público");
-
-        return directorio;
-    }
 }

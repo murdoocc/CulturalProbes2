@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Videos"
-    android:background="@drawable/grandianteba">
+    android:background="@drawable/grandianteba"
+    android:alpha="0.9">
 
     <Button
         android:id="@+id/btnCamaraVideo"
@@ -22,7 +23,8 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.344" />
+        app:layout_constraintVertical_bias="0.344"
+        />
 
     <Button
         android:id="@+id/btnGaleria2"

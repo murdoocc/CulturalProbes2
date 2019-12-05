@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+// Ruta del apk C:\Users\Juancho\AndroidStudioProjects\CulturalProbresOriginal\app\build\outputs\apk\debug
+
 public class Inicio extends AppCompatActivity {
 
     Button btnBackLogin;
